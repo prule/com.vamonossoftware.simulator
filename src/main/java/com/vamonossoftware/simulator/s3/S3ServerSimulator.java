@@ -12,7 +12,7 @@ import java.nio.file.Path;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "${simulator.email}", havingValue = "true")
+@ConditionalOnProperty(value = "simulator.s3.enabled", havingValue = "true")
 public class S3ServerSimulator {
 
     private final int port;
@@ -36,7 +36,7 @@ public class S3ServerSimulator {
             builder.withInMemoryBackend();
         }
 
-        S3Mock api = builder.build();
+        api = builder.build();
         api.start();
     }
 
