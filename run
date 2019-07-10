@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+
+case "$1" in
+
+  'build')
+    echo ""
+    echo "Building"
+    echo ""
+    ./gradlew build
+    ./gradlew assemble
+    ;;
+
+  'clean')
+    echo ""
+    echo "Cleaning"
+    echo ""
+    ./gradlew clean
+    ;;
+
+  'compile')
+    echo ""
+    echo "Compiling"
+    echo ""
+    ./gradlew compileJava
+    ;;
+
+  'test')
+    echo ""
+    echo "Running tests"
+    echo ""
+    ./gradlew test
+    ;;
+
+  'jar')
+    echo ""
+    echo "Building JAR"
+    echo ""
+    ./gradlew jar
+    ;;
+
+  'install')
+    echo ""
+    echo "Installing to local maven repo"
+    echo ""
+    ./gradlew install
+    ;;
+
+  'gradle:upgrade')
+    echo ""
+    echo "Upgrading gradle."
+    echo ""
+    if [ -z "$2" ]; then
+      echo "Version not specified!"
+    else
+      ./gradlew wrapper --gradle-version $2
+    fi
+    echo ""
+    ;;
+
+  'report:coverage')
+    echo ""
+    echo "Generating Jacoco test coverage report."
+    echo ""
+    ./gradlew JacocoTestReport
+    echo ""
+    ;;
+
+  'report:coverage:open')
+    echo ""
+    echo "Opening Jacoco test coverage report."
+    echo ""
+    open ./subprojects/backend/build/reports/jacoco/test/html/index.html
+    echo ""
+    ;;
+
+  'report:test:open')
+    echo ""
+    echo "Opening Junit test report."
+    echo ""
+    open ./subprojects/backend/build/reports/tests/test/index.html
+    echo ""
+    ;;
+
+  # kordamp targets
+
+  'guide:create')
+    echo ""
+    echo "Creating guide"
+    echo ""
+    ./gradlew createGuide
+    ;;
+
+  'guide:open')
+    echo ""
+    echo "Opening guide"
+    echo ""
+    open ./docs/guide/build/guide/index.html
+    ;;
+
+
+  *)
+    echo -e ""
+    echo "Usage:"
+    echo ""
+    echo "$(tput setaf 5)    $me$(tput sgr0) $(tput setaf 3)<command>$(tput sgr0)"
+    echo ""
+    echo "Commands:"
+    echo ""
+
+    echo "$(tput setaf 3)    build                                      $(tput sgr0)      Compile and assemble application"
+    echo "$(tput setaf 3)    clean                                      $(tput sgr0)      Delete generated and temporary files"
+
+esac
