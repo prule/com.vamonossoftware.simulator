@@ -17,7 +17,7 @@ public class EmailServerSimulatorTest {
     @Autowired EmailServerSimulator simulator;
 
     @Test
-    public void testSend() {
+    public void GIVEN_email_is_sent_THEN_email_should_be_received() {
 
         simulator.clear();
 

@@ -76,7 +76,7 @@ public class S3ServerSimulatorFileBasedTest {
 
         final String expectedContents = "contents";
         final String bucketName = "test-bucket";
-        final String filePath = "file/name";
+        final String filePath = "file/doesNotExist";
 
         // create file via s3
         client.createBucket(bucketName);

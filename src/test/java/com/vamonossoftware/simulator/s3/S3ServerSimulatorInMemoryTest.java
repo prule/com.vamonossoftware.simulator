@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.TestPropertySource;
@@ -19,7 +20,6 @@ import java.nio.charset.Charset;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Configuration
 @TestPropertySource(locations = "/application-simulator-s3-memory.properties") // @ActiveProfiles({"simulator-s3"})
 public class S3ServerSimulatorInMemoryTest {
 
@@ -28,7 +28,7 @@ public class S3ServerSimulatorInMemoryTest {
     private AmazonS3 client;
 
     @BeforeEach
-    public void setup() {
+    public void before() {
 
         AwsClientBuilder.EndpointConfiguration endpoint = new AwsClientBuilder.EndpointConfiguration("http://localhost:"+port, "us-west-2");
 
@@ -42,7 +42,7 @@ public class S3ServerSimulatorInMemoryTest {
     }
 
     @Test
-    public void test() throws Exception {
+    public void GIVEN_file_is_put_THEN_get_should_return_contents() throws Exception {
 
         final String expectedContents = "contents";
         final String bucketName = "test-bucket";
