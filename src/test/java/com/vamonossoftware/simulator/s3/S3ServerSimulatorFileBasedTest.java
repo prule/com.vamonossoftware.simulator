@@ -33,7 +33,7 @@ public class S3ServerSimulatorFileBasedTest {
 
         final int port = 8011;
 
-        simulator = new S3ServerSimulator(port, directoryManager.directoryPath());
+        simulator = new S3ServerSimulator(new S3ServerSimulatorConfig(port, directoryManager.directoryPath()));
         simulator.start();
 
         AwsClientBuilder.EndpointConfiguration endpoint = new AwsClientBuilder.EndpointConfiguration("http://localhost:" + port, "us-west-2");

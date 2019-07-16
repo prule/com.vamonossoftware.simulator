@@ -15,22 +15,20 @@ import java.nio.file.Path;
 @ConditionalOnProperty(value = "simulator.s3.enabled", havingValue = "true")
 public class S3ServerSimulator {
 
-    private final int port;
-    private final Path path;
+    private final S3ServerSimulatorConfig config;
 
     private S3Mock api;
 
-    public S3ServerSimulator(@Value("${simulator.s3.port}") int port, @Value("${simulator.s3.path:}") Path path) {
-        this.port = port;
-        this.path = path;
+    public S3ServerSimulator(S3ServerSimulatorConfig config) {
+        this.config = config;
     }
 
     @PostConstruct
     public void start() {
-        S3Mock.Builder builder = new S3Mock.Builder().withPort(port);
+        S3Mock.Builder builder = new S3Mock.Builder().withPort(config.getPort());
 
-        if (path != null) {
-            builder.withFileBackend(path.toString());
+        if (config.getPath() != null) {
+            builder.withFileBackend(config.getPath().toString());
         }
         else {
             builder.withInMemoryBackend();
